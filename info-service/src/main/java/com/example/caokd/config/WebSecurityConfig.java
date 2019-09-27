@@ -1,12 +1,10 @@
 package com.example.caokd.config;
 
-import com.example.caokd.filter1.JwtAuthenticationEntryPoint;
-import com.example.caokd.filter1.JwtAuthenticationProvider;
-import com.example.caokd.filter1.JwtAuthenticationTokenFilter;
+import com.example.caokd.filter.JwtAuthEntryPoint;
+import com.example.caokd.filter.JwtAuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,28 +15,31 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private JwtAuthenticationEntryPoint unauthorizedHandler;
-
-  @Autowired
-  private JwtAuthenticationProvider jwtAuthenticationProvider;
-
-  @Autowired
-  public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) {
-    authenticationManagerBuilder.authenticationProvider(jwtAuthenticationProvider);
-  }
-
-  @Bean
-  public JwtAuthenticationTokenFilter authenticationJwtTokenFilter() {
-    return new JwtAuthenticationTokenFilter();
-  }
-
-  //=========================
-
+//  @Autowired
+//  private JwtAuthenticationEntryPoint unauthorizedHandler;
+//
+//  @Autowired
+//  private JwtAuthenticationProvider jwtAuthenticationProvider;
+//
+//  @Autowired
+//  public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) {
+//    authenticationManagerBuilder.authenticationProvider(jwtAuthenticationProvider);
+//  }
+//
 //  @Bean
 //  public JwtAuthenticationTokenFilter authenticationJwtTokenFilter() {
 //    return new JwtAuthenticationTokenFilter();
 //  }
+
+  //=========================
+
+  @Autowired
+  private JwtAuthEntryPoint unauthorizedHandler;
+
+  @Bean
+  public JwtAuthTokenFilter authenticationJwtTokenFilter() {
+    return new JwtAuthTokenFilter();
+  }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
